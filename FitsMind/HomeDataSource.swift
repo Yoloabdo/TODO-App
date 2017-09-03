@@ -14,7 +14,7 @@ class HomeDataSource {
     
 
     let realm = try! Realm()
-    
+    weak var tableView: UITableView!
     var notificationToken: NotificationToken? = nil
     var results: Results<TODOItem>!
     
@@ -22,26 +22,33 @@ class HomeDataSource {
         return 1
     }
     
-    init(tableView: UITableView) {
-        
-        results = realm.objects(TODOItem.self).sorted(byKeyPath: "done")
-        notificationToken = results.addNotificationBlock {(changes: RealmCollectionChange) in
+    var sortType: SortingType{
+        didSet{
+            updateResults()
+        }
+    }
+    
+    func updateResults() -> Void {
+        results = realm.objects(TODOItem.self).sorted(byKeyPath: sortType.rawValue)
+        notificationToken?.stop()
+        notificationToken = nil
+        notificationToken = results.addNotificationBlock {[weak self](changes: RealmCollectionChange) in
             
             switch changes {
             case .initial:
                 // Results are now populated and can be accessed without blocking the UI
-                tableView.reloadData()
+                self?.tableView?.reloadData()
                 break
             case .update(_, let deletions, let insertions, let modifications):
                 // Query results have changed, so apply them to the UITableView
-                tableView.beginUpdates()
-                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
-                                           with: .automatic)
-                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
-                                           with: .automatic)
-                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
-                                           with: .automatic)
-                tableView.endUpdates()
+                self?.tableView?.beginUpdates()
+                self?.tableView?.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                self?.tableView?.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                self?.tableView?.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                self?.tableView?.endUpdates()
                 break
             case .error(let error):
                 // An error occurred while opening the Realm file on the background worker thread
@@ -49,6 +56,43 @@ class HomeDataSource {
                 break
             }
         }
+    }
+    
+    
+    func filter(searchText: String) -> Void {
+        results = realm.objects(TODOItem.self).filter("text contains '\(searchText)'")
+        notificationToken?.stop()
+        notificationToken = nil
+        notificationToken = results.addNotificationBlock {[weak self](changes: RealmCollectionChange) in
+            
+            switch changes {
+            case .initial:
+                // Results are now populated and can be accessed without blocking the UI
+                self?.tableView?.reloadData()
+                break
+            case .update(_, let deletions, let insertions, let modifications):
+                // Query results have changed, so apply them to the UITableView
+                self?.tableView?.beginUpdates()
+                self?.tableView?.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                            with: .automatic)
+                self?.tableView?.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                            with: .automatic)
+                self?.tableView?.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                            with: .automatic)
+                self?.tableView?.endUpdates()
+                break
+            case .error(let error):
+                // An error occurred while opening the Realm file on the background worker thread
+                fatalError("\(error)")
+                break
+            }
+        }
+    }
+    
+    init(sort: SortingType, tableView: UITableView) {
+        sortType = sort
+        self.tableView = tableView
+        updateResults()
     }
     
     deinit {
@@ -59,13 +103,19 @@ class HomeDataSource {
     
     func numberOfItemsFor(_ section: Int) -> Int {
        
-        return results.count
+        return results?.count ?? 0
     }
     
     
     func cellForRowAt(index: IndexPath) -> TODOItem {
         
-        return results[index.row]
+        return (results[index.row])
+    }
+    
+    func delete(_ index: IndexPath) -> Void {
+        try! realm.write {
+            realm.delete(results[index.row])
+        }
     }
 }
 
@@ -79,7 +129,12 @@ extension HomeDataSource: HomeTableViewCellDelegate {
     
     func updateProirity(state: Bool, item: TODOItem) {
         try! realm.write {
-            item.proirity = state
+            item.priority = state
         }
     }
+}
+
+
+enum SortingType:String {
+    case dueDate, done, priority
 }

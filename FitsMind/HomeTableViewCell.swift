@@ -34,7 +34,7 @@ class HomeTableViewCell: UITableViewCell {
         todoLabel.text = todo.text
         doneButton.isSelected = todo.done
         doneButton.setOn(todo.done, animated: true)
-        proirityButton.setOn(todo.proirity, animated: true)
+        proirityButton.setOn(todo.priority, animated: true)
     }
     
     

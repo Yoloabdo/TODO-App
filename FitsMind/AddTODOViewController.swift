@@ -14,14 +14,26 @@ class AddTODOViewController: UIViewController {
     
     let realm = try! Realm()
     
-    @IBOutlet weak var todoTF: UITextField?
-    @IBOutlet weak var important: BEMCheckBox?
+    var todo: TODOItem?
+    
+    @IBOutlet weak var todoTF: UITextField!
+    @IBOutlet weak var important: BEMCheckBox!{
+        didSet{
+            important?.boxType = .square
+        }
+    }
     
     
     @IBAction func saveTapped(_ sender: UIButton) {
-        let todo = TODOItem(text: todoTF?.text, dueDate: nil, proirity: important?.isSelected)
+        if todo != nil {
+            try! realm.write {
+                todo!.text = todoTF.text
+                todo!.priority = (important?.on)!
+            }
+        }
+        todo = TODOItem(text: todoTF.text, dueDate: nil, priority: important.on)
         try! realm.write {
-            realm.add(todo)
+            realm.add(todo!)
         }
         navigationController?.popViewController(animated: true)
     }
@@ -29,6 +41,8 @@ class AddTODOViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        todoTF.text = todo?.text
+        important.setOn(todo?.priority ?? false, animated: true)
         // Do any additional setup after loading the view.
     }
 

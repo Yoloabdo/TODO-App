@@ -15,7 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        UISearchBar.appearance().barTintColor = #colorLiteral(red: 0.4404963851, green: 0.5776750445, blue: 0.7239323258, alpha: 1)
+        UISearchBar.appearance().tintColor = .white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = #colorLiteral(red: 0.4404963851, green: 0.5776750445, blue: 0.7239323258, alpha: 1)
+
         return true
     }
 

@@ -19,15 +19,15 @@ class TODOItem: Object {
     
     dynamic var text: String? = ""
     dynamic var dueDate: Date?
-    dynamic var proirity = false
+    dynamic var priority = false
     dynamic var lastUpdate = Date()
     dynamic var done = false
     
-    convenience init(text: String?, dueDate: Date?, proirity: Bool?) {
+    convenience init(text: String?, dueDate: Date?, priority: Bool?) {
         self.init()
         self.text = text
         self.dueDate = dueDate
-        self.proirity = proirity ?? false
+        self.priority = priority ?? false
         
     }
     
@@ -36,7 +36,7 @@ class TODOItem: Object {
     }
     
     override class func indexedProperties() -> [String] {
-        return ["text", "dueDate", "proirity"]
+        return ["text", "dueDate", "priority"]
     }
 
 }
