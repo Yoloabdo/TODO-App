@@ -6,5 +6,7 @@ target 'FitsMind' do
   use_frameworks!
 
   # Pods for FitsMind
-
+	pod 'RealmSwift'
+    pod 'SwifterSwift', '~> 1.6.4'
+    pod 'BEMCheckBox'
 end
