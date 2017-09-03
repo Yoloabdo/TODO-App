@@ -166,36 +166,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="I want .." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZMs-b3-flX">
-                                <rect key="frame" x="16" y="104" width="343" height="17"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="avL-Uw-h7d">
-                                <rect key="frame" x="16" y="131" width="343" height="35"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avL-Uw-h7d">
+                                <rect key="frame" x="16" y="94" width="343" height="35"/>
                                 <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="I want .." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZMs-b3-flX">
+                                        <rect key="frame" x="0.0" y="0.0" width="308" height="35"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KVH-Sf-Z27" customClass="BEMCheckBox">
-                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="35"/>
+                                        <rect key="frame" x="308" y="0.0" width="35" height="35"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="UFX-NK-7eP"/>
+                                            <constraint firstAttribute="width" secondItem="KVH-Sf-Z27" secondAttribute="height" id="jV4-VA-dXw"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKX-7R-jxW">
-                                        <rect key="frame" x="171.5" y="0.0" width="171.5" height="35"/>
-                                        <state key="normal" title="due date"/>
-                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="avL-Uw-h7d" firstAttribute="leading" secondItem="Za3-bj-ioP" secondAttribute="leadingMargin" id="8kV-iy-Ekk"/>
-                            <constraint firstItem="ZMs-b3-flX" firstAttribute="top" secondItem="ffr-0s-2eq" secondAttribute="bottom" constant="40" id="DuN-7E-VXc"/>
-                            <constraint firstItem="ZMs-b3-flX" firstAttribute="trailing" secondItem="Za3-bj-ioP" secondAttribute="trailingMargin" id="MYT-eV-pL5"/>
-                            <constraint firstItem="avL-Uw-h7d" firstAttribute="top" secondItem="ZMs-b3-flX" secondAttribute="bottom" constant="10" id="R03-Js-NMI"/>
-                            <constraint firstItem="ZMs-b3-flX" firstAttribute="leading" secondItem="Za3-bj-ioP" secondAttribute="leadingMargin" id="rEn-KV-eVn"/>
+                            <constraint firstItem="avL-Uw-h7d" firstAttribute="top" secondItem="ffr-0s-2eq" secondAttribute="bottom" constant="30" id="r5p-Qg-9op"/>
                             <constraint firstAttribute="trailingMargin" secondItem="avL-Uw-h7d" secondAttribute="trailing" id="uFZ-cl-Ufo"/>
                         </constraints>
                     </view>

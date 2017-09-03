@@ -29,6 +29,7 @@ class AddTODOViewController: UIViewController {
             try! realm.write {
                 todo!.text = todoTF.text
                 todo!.priority = (important?.on)!
+                todo!.lastUpdate = Date()
             }
         }
         todo = TODOItem(text: todoTF.text, dueDate: nil, priority: important.on)

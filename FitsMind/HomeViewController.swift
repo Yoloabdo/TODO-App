@@ -51,7 +51,7 @@ class HomeViewController: UIViewController {
         action.addAction(done)
 
         let date = UIAlertAction(title: "Due date", style: .default) { (_) in
-            self.dataSource?.sortType = .dueDate
+            self.dataSource?.sortType = .date
             action.dismiss(animated: true, completion: nil)
         }
         action.addAction(date)

@@ -136,5 +136,5 @@ extension HomeDataSource: HomeTableViewCellDelegate {
 
 
 enum SortingType:String {
-    case dueDate, done, priority
+    case date = "lastUpdate", done, priority
 }
