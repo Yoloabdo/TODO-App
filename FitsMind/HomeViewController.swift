@@ -16,7 +16,6 @@ class HomeViewController: UIViewController {
     }
 
     var dataSource: HomeDataSource?
-    var notificationToken: NotificationToken? = nil
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -27,10 +26,6 @@ class HomeViewController: UIViewController {
     
     }
     
-    deinit {
-        notificationToken?.stop()
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

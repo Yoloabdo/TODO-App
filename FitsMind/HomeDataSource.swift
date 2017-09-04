@@ -30,37 +30,19 @@ class HomeDataSource {
     
     func updateResults() -> Void {
         results = realm.objects(TODOItem.self).sorted(byKeyPath: sortType.rawValue)
-        notificationToken?.stop()
-        notificationToken = nil
-        notificationToken = results.addNotificationBlock {[weak self](changes: RealmCollectionChange) in
-            
-            switch changes {
-            case .initial:
-                // Results are now populated and can be accessed without blocking the UI
-                self?.tableView?.reloadData()
-                break
-            case .update(_, let deletions, let insertions, let modifications):
-                // Query results have changed, so apply them to the UITableView
-                self?.tableView?.beginUpdates()
-                self?.tableView?.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
-                                     with: .automatic)
-                self?.tableView?.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
-                                     with: .automatic)
-                self?.tableView?.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
-                                     with: .automatic)
-                self?.tableView?.endUpdates()
-                break
-            case .error(let error):
-                // An error occurred while opening the Realm file on the background worker thread
-                fatalError("\(error)")
-                break
-            }
-        }
+    
+        startNotification()
+
     }
     
     
     func filter(searchText: String) -> Void {
         results = realm.objects(TODOItem.self).filter("text contains '\(searchText)'")
+        startNotification()
+    }
+    
+    
+    func startNotification() -> Void {
         notificationToken?.stop()
         notificationToken = nil
         notificationToken = results.addNotificationBlock {[weak self](changes: RealmCollectionChange) in
