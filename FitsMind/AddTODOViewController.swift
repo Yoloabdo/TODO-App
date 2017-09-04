@@ -15,7 +15,8 @@ class AddTODOViewController: UIViewController {
     let realm = try! Realm()
     
     var todo: TODOItem?
-    
+    var dueDate: Date?
+    @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var todoTF: UITextField!
     @IBOutlet weak var important: BEMCheckBox!{
         didSet{
@@ -27,6 +28,7 @@ class AddTODOViewController: UIViewController {
     @IBAction func saveTapped(_ sender: UIButton) {
         if todo != nil {
             try! realm.write {
+                todo!.dueDate = self.datePicker.alpha == 1 ? dueDate : nil
                 todo!.text = todoTF.text
                 todo!.priority = (important?.on)!
                 todo!.lastUpdate = Date()
@@ -38,7 +40,17 @@ class AddTODOViewController: UIViewController {
         }
         navigationController?.popViewController(animated: true)
     }
+    @IBAction func dueDateTapped(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.5) { 
+            self.datePicker.alpha = self.datePicker.alpha == 1 ? 0 : 1
+        }
+    }
 
+    @IBAction func userPicked(_ sender: UIDatePicker) {
+        dueDate = sender.date
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,3 +69,4 @@ class AddTODOViewController: UIViewController {
     }
 
 }
+

@@ -185,10 +185,37 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghx-qv-tlJ">
+                                <rect key="frame" x="26" y="149" width="323" height="48"/>
+                                <state key="normal" title="Due date" image="calendar_blank">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="dueDateTapped:" destination="fXn-t7-Bmd" eventType="touchUpInside" id="M8K-bU-1Iw"/>
+                                </connections>
+                            </button>
+                            <datePicker alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="oa5-qa-cSe">
+                                <rect key="frame" x="0.0" y="205" width="375" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="526204963.539092">
+                                    <!--2017-09-04 08:02:43 +0000-->
+                                </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-31582800">
+                                    <!--2000-01-01 11:00:00 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="userPicked:" destination="fXn-t7-Bmd" eventType="valueChanged" id="RGy-Ua-yXB"/>
+                                </connections>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="oa5-qa-cSe" firstAttribute="leading" secondItem="Za3-bj-ioP" secondAttribute="leading" id="4G1-bA-TWe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ghx-qv-tlJ" secondAttribute="trailing" constant="10" id="4MB-YT-x5g"/>
+                            <constraint firstItem="oa5-qa-cSe" firstAttribute="top" secondItem="ghx-qv-tlJ" secondAttribute="bottom" constant="8" id="81O-9l-8Rc"/>
                             <constraint firstItem="avL-Uw-h7d" firstAttribute="leading" secondItem="Za3-bj-ioP" secondAttribute="leadingMargin" id="8kV-iy-Ekk"/>
+                            <constraint firstItem="ghx-qv-tlJ" firstAttribute="leading" secondItem="Za3-bj-ioP" secondAttribute="leadingMargin" constant="10" id="9fO-L1-Vu9"/>
+                            <constraint firstItem="ghx-qv-tlJ" firstAttribute="top" secondItem="avL-Uw-h7d" secondAttribute="bottom" constant="20" id="Z78-8v-5Va"/>
+                            <constraint firstAttribute="trailing" secondItem="oa5-qa-cSe" secondAttribute="trailing" id="fbk-yt-H8P"/>
                             <constraint firstItem="avL-Uw-h7d" firstAttribute="top" secondItem="ffr-0s-2eq" secondAttribute="bottom" constant="30" id="r5p-Qg-9op"/>
                             <constraint firstAttribute="trailingMargin" secondItem="avL-Uw-h7d" secondAttribute="trailing" id="uFZ-cl-Ufo"/>
                         </constraints>
@@ -207,6 +234,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="datePicker" destination="oa5-qa-cSe" id="Svu-Hx-CDC"/>
                         <outlet property="important" destination="KVH-Sf-Z27" id="5Hb-2t-XPL"/>
                         <outlet property="todoTF" destination="ZMs-b3-flX" id="YaI-GA-D1P"/>
                     </connections>
@@ -236,5 +264,6 @@
     </scenes>
     <resources>
         <image name="background" width="1280" height="720"/>
+        <image name="calendar_blank" width="48" height="48"/>
     </resources>
 </document>
