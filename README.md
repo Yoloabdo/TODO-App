@@ -1,4 +1,4 @@
-#Simple TODO app
+# Simple TODO app
 
 1. Create a simple Todo-App using Swift and Realm (NOTE: use Realm Mobile Database and not the the Realm Platform) as the local database. 
 2. It should be possible to create, edit and delete todos. 
